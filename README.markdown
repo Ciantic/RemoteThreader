@@ -11,9 +11,9 @@ You probably first need the [VS 2015 runtimes vc_redist.x64.exe and/or vc_redist
 Usage
 ---------
 
-RemoteThreader [processName] [DLLpath] ([functionName]) ([functionArgument])
-  Function argument is given to function as wchar_t*
-  If you omit function name and function argument, program tries to free the dll.
+	RemoteThreader [processName] [DLLpath] ([functionName]) ([functionArgument])
+	  Function argument is given to function as wchar_t*
+	  If you omit function name and function argument, program tries to free the dll.
   
 
 Notes
