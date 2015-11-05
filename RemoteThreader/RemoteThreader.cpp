@@ -81,22 +81,21 @@ bool InjectToRemoteThread(HANDLE hProcess, std::wstring dllPath) {
 
 	LPVOID dllPathInMemory = ReserveMemoryInRemote(hProcess, dllPath);
 	if (!dllPathInMemory) {
-		std::wcout << "Unable to reserve memory for AHK dll path." << std::endl;
+		std::wcout << "Unable to reserve memory for dll path." << std::endl;
 		return false;
 	}
 
 	HANDLE hThread = CreateRemoteThread(hProcess, 0, 0, (LPTHREAD_START_ROUTINE)addrLoadLibrary, dllPathInMemory, 0, 0);
 	if (!hThread) {
 		FreeMemoryInRemote(hProcess, dllPathInMemory, dllPath);
-		std::wcout << "Unable to create remote thread for AHK dll" << std::endl;
+		std::wcout << "Unable to create remote thread for dll injection." << std::endl;
 		return false;
 	}
 	std::wcout << "Injected a dll with thread: " << hThread << std::endl;
 
 	WaitForSingleObject(hThread, 0xFFFFFFFF);
-	DWORD exitCode;
+	// DWORD exitCode;
 	// GetExitCodeThread(hThread, &exitCode);
-	// std::wcout << "Exit code for AHK thread: " << exitCode << std::endl;
 	CloseHandle(hThread);
 	FreeMemoryInRemote(hProcess, dllPathInMemory, dllPath);
 	return true;
